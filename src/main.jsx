@@ -1,19 +1,33 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App.jsx";
+import "./index.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-{/* Deve ter as rotas:
-  home
-  filmes
-  Detalhes do Filme
-  Lista de gêneros
-  Filmes por gênero
-  Page Not Found
-  */}
+import Home from "./pages/Home.jsx";
+import MovieListPage from "./pages/MovieListPage.jsx";
+import MovieDetailPage from "./pages/MovieDetailPage.jsx";
+import GenreListPage from "./pages/GenreListPage.jsx";
+import MoviesByGenrePage from "./pages/MoviesByGenrePage.jsx";
+import PageNotFound from "./pages/PageNotFound.jsx";
 
-createRoot(document.getElementById('root')).render(
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      { index: true, element: <Home /> },
+      { path: "listafilmes", element: <MovieListPage /> },
+      { path: "detalhefilme", element: <MovieDetailPage /> },
+      { path: "listagenero", element: <GenreListPage /> },
+      { path: "filmegenero", element: <MoviesByGenrePage /> },
+      { path: "*", element: <PageNotFound /> },
+    ],
+  },
+]);
+
+createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <App />
-  </StrictMode>,
-)
+    <RouterProvider router={router} />
+  </StrictMode>
+);
