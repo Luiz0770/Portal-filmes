@@ -1,4 +1,5 @@
 export default function GenreCard() {
+    
     return(
         <>
         <h1>Genre Card</h1>
