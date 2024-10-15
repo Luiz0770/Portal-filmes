@@ -1,9 +1,18 @@
-import { useState } from "react";
-import movies from "../data/movies.json";
+import { useEffect, useState } from "react";
 import MovieCard from "../components/MovieCard";
 
 export default function MovieListPage() {
+  
   const [pesquisa, setPesquisa] = useState("");
+  const [movies, SetMovies] = useState([]);
+
+  useEffect(() => {
+    fetch('https://api.themoviedb.org/3/movie/popular?api_key=f60febf3e7bf76f4314496086bf8c249&language=pt-br')
+    .then(res => res.json())
+    .then(res => SetMovies(res.results))
+    .catch(erro => console.log(erro))
+    .finally( () => console.log(" Cabo"))
+  }, [])
 
   function aoDigitar(e) {
     setPesquisa(e.target.value);
@@ -11,7 +20,7 @@ export default function MovieListPage() {
   }
 
   const filmeFiltrado = movies.filter((movie) =>
-    movie.titulo.toLowerCase().includes(pesquisa.toLowerCase())
+    movie.title.toLowerCase().includes(pesquisa.toLowerCase())
   );
 
   return (
@@ -27,14 +36,14 @@ export default function MovieListPage() {
         />
       </div>
 
-      <section className="grid gap-3 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 content-center justify-center">
+      <section className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 content-center justify-center">
         {
           filmeFiltrado.length > 0 ? (
           filmeFiltrado.map(movie => (
             <MovieCard
               key={movie.id}
-              titulo={movie.titulo}
-              imagem_destaque={movie.imagem_destaque}
+              title={movie.title}
+              poster_path={movie.poster_path}
             />
           ))
         ) : (
