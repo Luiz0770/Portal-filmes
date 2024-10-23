@@ -1,8 +1,10 @@
+import imgError from '../assets/404error.svg'
+
 function PageNotFound() {
   return (
-    <>
-      <h1>PageNotFound</h1>
-    </>
+    <div className='h-screen flex justify-center items-center bg-cyan-800'>
+      <img src={imgError} alt="Imagem de Erro" width={800} />
+    </div>
   );
 }
 

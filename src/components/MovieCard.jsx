@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 export default function MovieCard({title, poster_path, id}) {
+
     return(
         <>
             <div className="flex flex-col flex-wrap items-center justify-center text-center">

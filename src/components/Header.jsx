@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import BtnLogin from "./BtnLogin";
 import { useState } from "react";
 
@@ -15,7 +15,7 @@ export default function Header(){
         <>
             <header className="py-6 flex justify-around text-white bg-cyan-950 font-semibold text-lg drop-shadow-xl">
                 <div>
-                    <h1>Portal Filmes</h1>
+                    <Link to='/'>Portal Filmes</Link>
                 </div>
                 <nav>
                     <ul className="flex gap-7">
