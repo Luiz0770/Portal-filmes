@@ -42,9 +42,12 @@ export default function MovieDetailPage() {
       }
     };
     fetchData();
+
+    // Força a página a carregar no topo
+    window.scrollTo(0, 0);
   }, [id]);
 
-  console.log(cast);
+  console.log(trailer);
 
   return isLoading ? (
     <div className="h-screen flex justify-center items-center">
@@ -53,20 +56,19 @@ export default function MovieDetailPage() {
   ) : (
     <>
       <div
-        className="relative flex flex-col h-[80vh] bg-no-repeat bg-cover bg-center items-center p-20"
+        className="relative flex flex-col h-[70vh] bg-no-repeat bg-cover bg-center items-center p-20"
         style={{
           backgroundImage: `url('https://image.tmdb.org/t/p/w1280${movie.backdrop_path}')`,
         }}
       >
+        {/* Infos */}
         <div className="absolute inset-0 bg-black opacity-75"></div>
-
         <div className="relative grid grid-cols-2 items-start">
           <img
-            className="shadow-slate-950 shadow-lg rounded-lg"
+            className="shadow-slate-950 shadow-lg rounded-lg max-w-max"
             src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
             alt={movie.title}
           />
-
           <div className="text-white max-w-lg">
             <h1 className="text-4xl font-bold mb-2">{movie.title}</h1>
             <div className="flex items-center gap-10">
@@ -89,17 +91,40 @@ export default function MovieDetailPage() {
               )}
             </div>
             <p className="font-medium">{movie.overview}</p>
+            <div>
+              <button
+                title="Add New"
+                className="group cursor-pointer outline-none hover:rotate-90 duration-300 mt-5"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="50px"
+                  height="50px"
+                  viewBox="0 0 24 24"
+                  className="stroke-zinc-400 fill-none group-hover:fill-zinc-800 group-active:stroke-zinc-200 group-active:fill-zinc-600 group-active:duration-0 duration-300"
+                >
+                  <path
+                    d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z"
+                    strokeWidth={1.5}
+                  />
+                  <path d="M8 12H16" strokeWidth={1.5} />
+                  <path d="M12 16V8" strokeWidth={1.5} />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="mt-5 px-5">
-        <h2>Elenco</h2>
-        <CarroselCast cast={cast}/>
+      {/* Elenco */}
+      <div className="mt-10 px-10 w-5/6 mx-auto">
+        <h2 className="font-semibold text-3xl mb-5">Elenco Principal:</h2>
+        <CarroselCast cast={cast} />
       </div>
 
+      {/* Trailer */}
       <div className="flex flex-col justify-center items-center pb-10">
-        <h2 className="text-2xl py-5">Trailer</h2>
+        <h2 className="font-semibold text-3xl py-5">Assista o Trailer!</h2>
         {trailer && trailer.length > 0 ? (
           <iframe
             className="rounded-lg"

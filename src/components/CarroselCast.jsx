@@ -2,33 +2,29 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
+import CastCard from "./CastCard";
 
 export default function Carrosel({ cast }) {
     console.log(cast);
 
     return (
         <>
-            <Swiper
-                spaceBetween={50}
-                slidesPerView={6}
-            >
-                {cast.map(ator => (
-                    <SwiperSlide key={ator.name}>
-                        <div>
-                            {
-                                ator.profile_path ? (
-                                    <img
-                                        src={`https://image.tmdb.org/t/p/w300${ator.profile_path}`}
-                                        alt={ator.name}
-                                    />
-                                ) : null
-                            }
-
-                            <h3>{ator.name}</h3>
-                        </div>
-                    </SwiperSlide>
-                ))}
-            </Swiper>
+            <div className="">
+                <Swiper
+                    spaceBetween={10}
+                    slidesPerView={8}
+                    breakpoints={{ 320: { slidesPerView: 1 }, 550: { slidesPerView: 2 }, 768: { slidesPerView: 4 }, 1100: { slidesPerView: 5 }, 1336: { slidesPerView: 6 } }}
+                >
+                    {cast
+                        .filter(ator => ator.profile_path) // Filtra apenas atores que possuem imagem
+                        .map(ator => (
+                            <SwiperSlide key={ator.id}>
+                                <CastCard ator={ator} />
+                            </SwiperSlide>
+                        ))
+                    }
+                </Swiper>
+            </div>
         </>
     );
 }

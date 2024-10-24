@@ -47,25 +47,29 @@ export default function Home() {
     fetchData();
   }, []);
 
-  return isLoading ? <div className="h-screen flex justify-center items-center"><l-dot-wave size="47" speed="1" color="black"/></div> : (
+  console.log(series)
+
+  return isLoading ? <div className="h-screen flex justify-center items-center"><l-dot-wave size="47" speed="1" color="black" /></div> : (
     <>
       <Banner />
-      <div>
-        <CardContainer label={"Filmes Populares"}>
-          <Carrosel movies={moviesPopular} />
-        </CardContainer>
-      </div>
+      <div className="px-10">
+        <div>
+          <CardContainer label={"Filmes Populares:"}>
+            <Carrosel movies={moviesPopular} />
+          </CardContainer>
+        </div>
 
-      <div>
-        <CardContainer label={"Filmes que estão por vir!"}>
-          <Carrosel movies={movieComming} />
-        </CardContainer>
-      </div>
+        <div>
+          <CardContainer label={"Filmes que estão por vir:"}>
+            <Carrosel movies={movieComming} />
+          </CardContainer>
+        </div>
 
-      <div>
-        <CardContainer label={"Series Populares"}>
-          <Carrosel movies={series} />
-        </CardContainer>
+        <div>
+          <CardContainer label={"Series Populares:"}>
+            <Carrosel movies={series} />
+          </CardContainer>
+        </div>
       </div>
     </>
   )

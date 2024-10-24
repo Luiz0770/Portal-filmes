@@ -14,7 +14,7 @@ export default function Carrosel({ movies }) {
         spaceBetween={50}
         slidesPerView={5}
       >
-        {movies.map(movie => <SwiperSlide><MovieCard title={movie.title} poster_path={movie.poster_path} id={movie.id}/></SwiperSlide>)}
+        {movies.map(movie => <SwiperSlide key={movie.id}><MovieCard title={movie.title || movie.name} poster_path={movie.poster_path} id={movie.id}/></SwiperSlide>)}
       </Swiper>
     </>
   );
