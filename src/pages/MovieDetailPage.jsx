@@ -8,6 +8,8 @@ export default function MovieDetailPage() {
   const [trailer, setTrailer] = useState([]);
   const [cast, setCast] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [filmesAssistido, setFilmesAssistidos] = useState([])
+  const [filmesParaAssistir, setFilmesParaAssistir] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,8 +45,27 @@ export default function MovieDetailPage() {
     };
     fetchData();
 
+    const LSAssistidos = JSON.parse(localStorage.getItem("filmesVistos")) || [];
+    setFilmesAssistidos(LSAssistidos)
+
+    const LSAssitir = JSON.parse(localStorage.getItem("filmesAssistir")) || [];
+    setFilmesParaAssistir(LSAssitir)
+
     window.scrollTo(0, 0);
   }, [id]);
+
+
+  function filmesVistos(movie) {
+    const listaAtualizado = [...filmesAssistido, movie]
+    setFilmesAssistidos(listaAtualizado)
+    localStorage.setItem("filmesVistos", JSON.stringify(listaAtualizado));
+  }
+
+  function filmesAssistir(movie) {
+    const listaAtualizado = [...filmesParaAssistir, movie]
+    setFilmesParaAssistir(listaAtualizado)
+    localStorage.setItem("filmesAssistir", JSON.stringify(listaAtualizado));
+  }
 
   return isLoading ? (
     <div className="h-screen flex justify-center items-center">
@@ -89,11 +110,31 @@ export default function MovieDetailPage() {
               )}
             </div>
             <p className="font-medium text-sm md:text-base">{movie.overview}</p>
-            {/* Botão de ação */}
-            <div>
+            <div className="flex gap-3">
               <button
                 title="Add New"
                 className="group cursor-pointer outline-none hover:rotate-90 duration-300 mt-5"
+                onClick={() => filmesVistos(movie)}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="50px"
+                  height="50px"
+                  viewBox="0 0 24 24"
+                  className="stroke-zinc-400 fill-none  group-active:stroke-zinc-200 group-active:fill-zinc-600 group-active:duration-0 duration-300"
+                >
+                  <path
+                    d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z"
+                    strokeWidth={1.5}
+                  />
+                  <path d="M8 12H16" strokeWidth={1.5} />
+                  <path d="M12 16V8" strokeWidth={1.5} />
+                </svg>
+              </button>
+              <button
+                title="Add New"
+                className="group cursor-pointer outline-none hover:rotate-90 duration-300 mt-5"
+                onClick={() => filmesAssistir(movie)}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

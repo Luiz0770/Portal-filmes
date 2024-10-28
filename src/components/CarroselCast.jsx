@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import CastCard from "./CastCard";
 
-export default function Carrosel({ cast }) {
+export default function CarroselCast({ cast }) {
     console.log(cast);
 
     return (

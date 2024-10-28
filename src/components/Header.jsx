@@ -22,6 +22,7 @@ export default function Header(){
                         <li className="duration-300 hover:scale-110"><NavLink to='/' >Home</NavLink></li>
                         <li className="duration-300 hover:scale-110"><NavLink to='/movies' >Filmes</NavLink></li>
                         <li className="duration-300 hover:scale-110"><NavLink to='/genres' >Gêneros</NavLink></li>
+                        <li className="duration-300 hover:scale-110"><NavLink to='/mylist' >Sua Lista</NavLink></li>
                         {isLogged && 
                         <li className="duration-300 hover:scale-110"><NavLink to='/config' >Configuração</NavLink></li>
                         }
