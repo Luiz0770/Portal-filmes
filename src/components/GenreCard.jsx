@@ -6,4 +6,4 @@ export default function GenreCard() {
         {/* Modelo de card que será utilizado para os gêneros */}
         </>
     )
-}
+}z
