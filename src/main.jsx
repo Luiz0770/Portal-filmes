@@ -20,7 +20,7 @@ const router = createBrowserRouter([
       { path: "/movies", element: <MovieListPage /> },
       { path: "/movies/:id", element: <MovieDetailPage /> },
       { path: "/genres", element: <GenreListPage /> },
-      { path: "/genres/:id", element: <MoviesByGenrePage /> },
+      { path: "/genres/:genreId", element: <MoviesByGenrePage /> },
       { path: "*", element: <PageNotFound /> },
     ],
   },
