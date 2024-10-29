@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CarroselCast from "../components/CarroselCast";
+import InfosMovie from "../components/InfosMovie";
 
 export default function MovieDetailPage() {
   const { id } = useParams();
@@ -8,8 +9,7 @@ export default function MovieDetailPage() {
   const [trailer, setTrailer] = useState([]);
   const [cast, setCast] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [filmesAssistido, setFilmesAssistidos] = useState([]);
-  const [filmesParaAssistir, setFilmesParaAssistir] = useState([]);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,6 +37,7 @@ export default function MovieDetailPage() {
         setMovie(resDetail);
         setTrailer(resTrailer.results);
         setCast(resCast.cast);
+
       } catch (erro) {
         console.log(erro);
       } finally {
@@ -45,34 +46,8 @@ export default function MovieDetailPage() {
     };
     fetchData();
 
-    const LSAssistidos = JSON.parse(localStorage.getItem("filmesVistos")) || [];
-    setFilmesAssistidos(LSAssistidos);
-
-    const LSParaAssistir = JSON.parse(localStorage.getItem("filmesAssistir")) || [];
-    setFilmesParaAssistir(LSParaAssistir);
-
     window.scrollTo(0, 0);
   }, [id]);
-
-  function filmesVistos(movie) {
-    if (!filmesAssistido.some((filme) => filme.id === movie.id)) {
-      const listaAtualizada = [...filmesAssistido, movie];
-      setFilmesAssistidos(listaAtualizada);
-      localStorage.setItem("filmesVistos", JSON.stringify(listaAtualizada));
-    } else {
-      alert('Esse filme já está na sua lista de assistidos!');
-    }
-  }
-
-  function filmesAssistir(movie) {
-    if (!filmesParaAssistir.some((filme) => filme.id === movie.id)) {
-      const listaAtualizada = [...filmesParaAssistir, movie];
-      setFilmesParaAssistir(listaAtualizada);
-      localStorage.setItem("filmesAssistir", JSON.stringify(listaAtualizada));
-    } else {
-      alert('Esse filme já está na sua lista de para assistir!');
-    }
-  }
 
   return isLoading ? (
     <div className="h-screen flex justify-center items-center">
@@ -80,111 +55,7 @@ export default function MovieDetailPage() {
     </div>
   ) : (
     <>
-      <div
-        className="relative flex flex-col md:flex-row md:h-[70vh] bg-no-repeat bg-cover bg-center items-center p-5 md:p-20"
-        style={{
-          backgroundImage: `url('https://image.tmdb.org/t/p/w1280${movie.backdrop_path}')`,
-        }}
-      >
-        <div className="absolute inset-0 bg-black opacity-75"></div>
-        <div className="mx-auto relative flex flex-col md:flex-row gap-5 md:gap-20 items-start justify-center">
-          {/* Imagem do poster */}
-          <img
-            className="shadow-slate-950 shadow-lg rounded-lg w-40 md:w-60 lg:w-72"
-            src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
-            alt={movie.title}
-          />
-
-          {/* Informações do filme */}
-          <div className="text-white max-w-lg space-y-4">
-            <h1 className="text-2xl md:text-4xl font-bold mb-2">{movie.title}</h1>
-            <div className="flex items-center gap-5 text-sm md:text-base">
-              <p>⭐ {movie.vote_average}</p>
-              <p>Lançamento: {movie.release_date}</p>
-            </div>
-            <div className="flex flex-wrap py-3 gap-3">
-              {movie.genres && movie.genres.length > 0 ? (
-                movie.genres.map((genero) => (
-                  <h2
-                    className="font-semibold border-2 py-1 px-2 rounded-lg border-cyan-950 text-sm"
-                    key={genero.id}
-                  >
-                    {genero.name}
-                  </h2>
-                ))
-              ) : (
-                <p>No genres available</p>
-              )}
-            </div>
-            <p className="font-medium text-sm md:text-base">{movie.overview}</p>
-            <div className="flex gap-3">
-              {filmesAssistido.some((filme) => filme.id === movie.id) ?
-                <button
-                  title="Add New"
-                  className="group cursor-pointer outline-none hover:rotate-90 duration-300 mt-5"
-                  onClick={() => filmesVistos(movie)}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="50px"
-                    height="50px"
-                    viewBox="0 0 24 24"
-                    className="stroke-red-800 fill-none  group-hover:stroke-red-800 group-active:stroke-red-950 group-active:duration-0 duration-300"
-                  >
-                    <path
-                      d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z"
-                      strokeWidth={1.5}
-                    />
-                    <path d="M8 8L16 16" strokeWidth={1.5} />  {/* Linha diagonal do "X" */}
-                    <path d="M8 16L16 8" strokeWidth={1.5} />  {/* Linha diagonal cruzada */}
-                  </svg>
-                </button> :
-
-                <button
-                  title="Add New"
-                  className="group cursor-pointer outline-none hover:rotate-90 duration-300 mt-5"
-                  onClick={() => filmesVistos(movie)}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="50px"
-                    height="50px"
-                    viewBox="0 0 24 24"
-                    className="stroke-zinc-400 fill-none  group-hover:stroke-zinc-200 group-active:fill-zinc-600 group-active:duration-0 duration-300"
-                  >
-                    <path
-                      d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z"
-                      strokeWidth={1.5}
-                    />
-                    <path d="M8 12H16" strokeWidth={1.5} />
-                    <path d="M12 16V8" strokeWidth={1.5} />
-                  </svg>
-                </button>
-              }
-              <button
-                title="Add New"
-                className="group cursor-pointer outline-none hover:rotate-90 duration-300 mt-5"
-                onClick={() => filmesAssistir(movie)}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="50px"
-                  height="50px"
-                  viewBox="0 0 24 24"
-                  className="stroke-zinc-400 fill-none  group-active:stroke-zinc-200 group-active:fill-zinc-600 group-active:duration-0 duration-300"
-                >
-                  <path
-                    d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z"
-                    strokeWidth={1.5}
-                  />
-                  <path d="M8 12H16" strokeWidth={1.5} />
-                  <path d="M12 16V8" strokeWidth={1.5} />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <InfosMovie movie={movie}/>
 
       {/* Elenco */}
       <div className="mt-10 px-5 md:px-10 w-full md:w-5/6 mx-auto">
