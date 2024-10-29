@@ -29,7 +29,7 @@ export default function MovieListPage() {
   );
 
   return (
-    <div className="min-h-screen px-16">
+    <div className="px-16">
       <div className="flex flex-col justify-center items-center">
         <h1 className="my-6 text-3xl">Movie List Page</h1>
         <input

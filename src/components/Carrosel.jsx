@@ -6,7 +6,6 @@ import MovieCard from "./MovieCard";
 import "swiper/css";
 
 export default function Carrosel({ movies }) {
-  console.log(movies);
 
   return (
     <>

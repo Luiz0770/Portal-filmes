@@ -47,8 +47,6 @@ export default function Home() {
     fetchData();
   }, []);
 
-  console.log(series)
-
   return isLoading ? <div className="h-screen flex justify-center items-center"><l-dot-wave size="47" speed="1" color="black" /></div> : (
     <>
       <Banner />
