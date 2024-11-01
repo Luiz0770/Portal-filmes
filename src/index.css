@@ -12,5 +12,5 @@
 }
 
 .active {
-  border-bottom: 1.5px solid var(--color-light);
+  background-color: #1D4ED8;
 }

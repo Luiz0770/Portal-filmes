@@ -1,4 +1,9 @@
 export default function BtnAdicionar({ funcao, color }) {
+  const colorClasses = {
+    "red-800": "stroke-red-800 group-hover:stroke-red-900 group-active:stroke-red-950",
+    "zinc-400": "stroke-zinc-400 group-hover:stroke-zinc-500 group-active:stroke-zinc-600",
+  };
+
   return (
     <button
       title="Adicionar Favorito"
@@ -10,7 +15,7 @@ export default function BtnAdicionar({ funcao, color }) {
         width="50px"
         height="50px"
         viewBox="0 0 24 24"
-        className={`stroke-${color} fill-none group-hover:stroke-${color}-dark group-active:stroke-${color}-darker group-active:duration-0 duration-300`}
+        className={`fill-none duration-300 ${colorClasses[color]}`}
       >
         <path
           d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z"

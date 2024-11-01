@@ -4,6 +4,15 @@ import App from "./App.jsx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+import { register } from "swiper/element/bundle";
+register();
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import "swiper/css/scrollbar";
+
 import Home from "./pages/Home.jsx";
 import MovieListPage from "./pages/MovieListPage.jsx";
 import MovieDetailPage from "./pages/MovieDetailPage.jsx";

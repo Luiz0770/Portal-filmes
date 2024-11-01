@@ -27,7 +27,7 @@ export default function GenreListPage() {
 
   return (
     <>
-      <div className="px-16">
+      <div className="px-16 py-5">
         <div className="flex flex-col justify-center items-center">
           <h1 className="my-6 text-3xl">Genre Page</h1>
           <select
